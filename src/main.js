@@ -6,6 +6,7 @@ import vSelect from 'vue-select';
 import VueSweetalert2 from 'vue-sweetalert2';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faArrowLeft,
   faEnvelope,
   faLock,
   faSignInAlt,
@@ -15,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'vue-select/dist/vue-select.css';
 
-library.add(faEnvelope, faLock, faSignInAlt);
+library.add(faEnvelope, faLock, faSignInAlt, faArrowLeft);
 
 Vue.use(VueSweetalert2);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
