@@ -5,13 +5,9 @@
         <img src="../assets/logo.svg" alt="logo" />
         <form onsubmit="myFunction()">
           <h1>Faça seu logon</h1>
-          <div class="inputContainer">
-            <Input name="email" type="email" placeholder="E-mail" />
-          </div>
-          <div class="inputContainer">
-            <Input name="password" type="password" placeholder="Senha" />
-          </div>
-          <Button type="submit">Entrar</Button>
+          <InputSign name="email" type="email" placeholder="E-mail" />
+          <InputSign name="password" type="password" placeholder="Senha" />
+          <ButtonSign type="submit">Entrar</ButtonSign>
           <router-link to="/signup" class="text-dark"
             >Esqueci minha senha</router-link
           >
@@ -27,6 +23,9 @@
 </template>
 
 <script>
+import ButtonSign from '@/components/ButtonSign.vue';
+import InputSign from '@/components/InputSign.vue';
+
 export default {
   data() {
     return {
@@ -34,7 +33,10 @@ export default {
       password: null,
     };
   },
-
+  components: {
+    ButtonSign,
+    InputSign,
+  },
   methods: {
     async onSubmit() {
       let credentials = {
@@ -114,49 +116,10 @@ export default {
   }
 }
 
-.inputContainer {
-  background: #232129;
-  border-radius: 10px;
-  border: 2px solid #212329;
-  padding: 16px;
-  /* width: 100%; */
-  align-items: center;
-  display: flex;
-  color: #666360;
-
-  & + div {
-    margin-top: 8px;
-  }
-
-  input {
-    flex: 1;
-    background: transparent;
-    border: 0;
-    color: #f4ede8;
-
-    &::placeholder {
-      color: #666360;
-    }
-  }
-}
-
 .background {
   flex: 1;
   background: no-repeat center;
   background-image: url('../assets/sign-in-background.png');
   background-size: cover;
-}
-
-button {
-  background: #ff9000;
-  color: #312e38;
-  height: 56px;
-  border-radius: 10px;
-  border: 0;
-  padding: 0 16px;
-  width: 100%;
-  font-weight: 550;
-  margin-top: 16px;
-  /* transition: background-color 0.2s; */
 }
 </style>
