@@ -4,7 +4,9 @@
       class="input-sign"
       ref="input"
       v-bind:type="type"
+      v-bind:value="value"
       v-bind:placeholder="placeholder"
+      v-on:input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
@@ -19,6 +21,10 @@ export default {
     },
     placeholder: {
       type: String,
+      default: '',
+    },
+    value: {
+      type: [String, Number],
       default: '',
     },
   },

@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+import api from '@/services/api';
 import router from '../../router/index';
 
 const session = JSON.parse(localStorage.getItem('auth-session') || '{}');
@@ -15,7 +16,7 @@ const getters = {
 const mutations = {
   updateSession(state, session) {
     state.session = session;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${session.token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${session.token}`;
 
     localStorage.setItem('auth-session', JSON.stringify(session));
   },
@@ -23,7 +24,7 @@ const mutations = {
 
 const actions = {
   async signup({ commit }, data) {
-    let response = await axios.post(`/users`, data);
+    let response = await api.post(`/users`, data);
 
     commit('updateSession', response.data);
 
@@ -31,7 +32,8 @@ const actions = {
   },
 
   async login({ commit }, credentials) {
-    let response = await axios.post(`/sessions`, credentials);
+    console.log(credentials);
+    let response = await api.post(`/sessions`, credentials);
     console.log(response);
 
     commit('updateSession', response.data);

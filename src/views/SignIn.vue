@@ -3,10 +3,20 @@
     <div class="content">
       <div class="animationContainer">
         <img src="../assets/logo.svg" alt="logo" />
-        <form onsubmit="myFunction()">
+        <form @submit.prevent="onSubmit">
           <h1>Faça seu logon</h1>
-          <InputSign name="email" type="email" placeholder="E-mail" />
-          <InputSign name="password" type="password" placeholder="Senha" />
+          <InputSign
+            name="email"
+            type="email"
+            placeholder="E-mail"
+            v-model="email"
+          />
+          <InputSign
+            name="password"
+            type="password"
+            placeholder="Senha"
+            v-model="password"
+          />
           <ButtonSign type="submit">Entrar</ButtonSign>
           <router-link to="/signup" class="text-dark"
             >Esqueci minha senha</router-link
