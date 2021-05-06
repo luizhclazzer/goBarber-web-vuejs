@@ -35,6 +35,7 @@
 <script>
 import ButtonSign from '@/components/ButtonSign.vue';
 import InputSign from '@/components/InputSign.vue';
+import Toast from '@/components/js/toast-notification-alert.js';
 
 export default {
   data() {
@@ -58,9 +59,10 @@ export default {
         await this.$store.dispatch('login', credentials);
         this.$router.push('/');
       } catch (e) {
-        return this.$swal.fire({
+        Toast.fire({
           icon: 'error',
-          title: 'Falha no login',
+          title: 'Erro na autenticação',
+          text: 'Por favor, cheque suas credenciais',
         });
       }
     },
