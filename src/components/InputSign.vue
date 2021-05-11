@@ -1,5 +1,16 @@
 <template>
-  <div class="input-container">
+  <div
+    class="input-container"
+    :class="[
+      {
+        'has-icon': suffixIcon,
+        'is-error': status === 'error',
+        'is-info': status === 'info',
+        'is-success': status === 'success',
+        'is-warning': status === 'warning',
+      },
+    ]"
+  >
     <input
       class="input-sign"
       ref="input"
@@ -7,6 +18,8 @@
       v-bind:value="value"
       v-bind:placeholder="placeholder"
       v-on:input="$emit('input', $event.target.value)"
+      :readonly="readonly"
+      @blur="handleBlur"
     />
   </div>
 </template>
@@ -27,11 +40,24 @@ export default {
       type: [String, Number],
       default: '',
     },
+    readonly: Boolean,
+    status: String,
+    suffixIcon: String,
+  },
+  methods: {
+    handleBlur(e) {
+      this.$emit('blur', e);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+$--color-error-500: #c53030;
+$--color-info-500: #0095ff;
+$--color-success-500: #00e096;
+$--color-warning-500: #ffaa00;
+
 .input-container {
   background: #232129;
   border-radius: 10px;
@@ -41,6 +67,22 @@ export default {
   align-items: center;
   display: flex;
   color: #666360;
+
+  &.is-error {
+    border-color: $--color-error-500;
+  }
+
+  &.is-info {
+    border-color: $--color-info-500;
+  }
+
+  &.is-success {
+    border-color: $--color-success-500;
+  }
+
+  &.is-warning {
+    border-color: $--color-warning-500;
+  }
 
   & + div {
     margin-top: 8px;
