@@ -10,13 +10,21 @@
             type="email"
             placeholder="E-mail"
             v-model="email"
+            :class="{ 'is-error': $v.email.$error }"
           />
+          <div class="error" v-if="$v.email.$dirty && !$v.email.required">
+            Insira seu e-mail
+          </div>
           <InputSign
             name="password"
             type="password"
             placeholder="Senha"
             v-model="password"
+            :class="{ 'is-error': $v.password.$error }"
           />
+          <div class="error" v-if="$v.password.$dirty && !$v.password.required">
+            Insira sua senha
+          </div>
           <ButtonSign type="submit">Entrar</ButtonSign>
           <router-link to="/signup" class="text-dark"
             >Esqueci minha senha</router-link
@@ -36,17 +44,26 @@
 import ButtonSign from '@/components/ButtonSign.vue';
 import InputSign from '@/components/InputSign.vue';
 import Toast from '@/components/js/toast-notification-alert.js';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   data() {
     return {
-      email: null,
-      password: null,
+      email: '',
+      password: '',
     };
   },
   components: {
     ButtonSign,
     InputSign,
+  },
+  validations: {
+    email: {
+      required,
+    },
+    password: {
+      required,
+    },
   },
   methods: {
     async onSubmit() {
@@ -56,8 +73,13 @@ export default {
       };
 
       try {
-        await this.$store.dispatch('login', credentials);
-        this.$router.push('/');
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          this.submitStatus = 'ERROR';
+        } else {
+          await this.$store.dispatch('login', credentials);
+          this.$router.push('/');
+        }
       } catch (e) {
         Toast.fire({
           icon: 'error',
@@ -133,5 +155,15 @@ export default {
   background: no-repeat center;
   background-image: url('../assets/sign-in-background.png');
   background-size: cover;
+}
+
+.error {
+  display: flex;
+  color: #c73a3a;
+  font-size: small;
+
+  & + div {
+    margin-top: 8px;
+  }
 }
 </style>
