@@ -4,11 +4,44 @@
     <div class="content">
       <div class="animationContainer">
         <img src="../assets/logo.svg" alt="logo" />
-        <form onsubmit="myFunction()">
+        <form @submit.prevent="onSubmit">
           <h1>Faça seu cadastro</h1>
-          <InputSign name="name" type="text" placeholder="Nome" />
-          <InputSign name="email" type="email" placeholder="E-mail" />
-          <InputSign name="password" type="password" placeholder="Senha" />
+          <InputSign
+            name="name"
+            type="text"
+            placeholder="Nome"
+            v-model="name"
+            :class="{ 'is-error': $v.name.$error }"
+          />
+          <div class="error" v-if="$v.name.$dirty && !$v.name.required">
+            Insira seu nome
+          </div>
+          <InputSign
+            name="email"
+            type="email"
+            placeholder="E-mail"
+            v-model="email"
+            :class="{ 'is-error': $v.email.$error }"
+          />
+          <div class="error" v-if="$v.email.$dirty && !$v.email.required">
+            Insira seu e-mail
+          </div>
+          <InputSign
+            name="password"
+            type="password"
+            placeholder="Senha"
+            v-model="password"
+            :class="{ 'is-error': $v.password.$error }"
+          />
+          <div class="error" v-if="$v.password.$dirty && !$v.password.required">
+            Insira sua senha
+          </div>
+          <div
+            class="error"
+            v-if="$v.password.$dirty && !$v.password.minLength"
+          >
+            Mínimo de 6 dígitos
+          </div>
           <ButtonSign type="submit">Cadastrar</ButtonSign>
         </form>
 
@@ -23,32 +56,54 @@
 <script>
 import ButtonSign from '@/components/ButtonSign.vue';
 import InputSign from '@/components/InputSign.vue';
+import Toast from '@/components/js/toast-notification-alert.js';
+import { required, minLength } from 'vuelidate/lib/validators';
 
 export default {
   data() {
     return {
-      email: null,
-      password: null,
+      name: '',
+      email: '',
+      password: '',
     };
   },
   components: {
     ButtonSign,
     InputSign,
   },
+  validations: {
+    name: {
+      required,
+    },
+    email: {
+      required,
+    },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+  },
   methods: {
     async onSubmit() {
       let credentials = {
+        name: this.name,
         email: this.email,
         password: this.password,
       };
 
       try {
-        await this.$store.dispatch('login', credentials);
-        this.$router.push('/');
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          this.submitStatus = 'ERROR';
+        } else {
+          await this.$store.dispatch('test', credentials);
+          this.$router.push('/');
+        }
       } catch (e) {
-        return this.$swal.fire({
+        Toast.fire({
           icon: 'error',
-          title: 'Falha no login',
+          title: 'Erro no cadastro',
+          text: 'Ocorreu um erro ao fazer cadastro, tente novamente',
         });
       }
     },
@@ -119,5 +174,15 @@ export default {
   background: no-repeat center;
   background-image: url('../assets/sign-up-background.png');
   background-size: cover;
+}
+
+.error {
+  display: flex;
+  color: #c73a3a;
+  font-size: small;
+
+  & + div {
+    margin-top: 8px;
+  }
 }
 </style>
