@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      let credentials = {
+      let user = {
         name: this.name,
         email: this.email,
         password: this.password,
@@ -96,14 +96,21 @@ export default {
         if (this.$v.$invalid) {
           this.submitStatus = 'ERROR';
         } else {
-          await this.$store.dispatch('test', credentials);
+          await this.$store.dispatch('signup', user);
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Cadastro realizado',
+            text: 'Você já pode fazer o logon no GoBarber!',
+          });
+
           this.$router.push('/');
         }
       } catch (e) {
         Toast.fire({
           icon: 'error',
           title: 'Erro no cadastro',
-          text: 'Ocorreu um erro ao fazer cadastro, tente novamente',
+          text: 'Ocorreu um erro ao fazer cadastro. Tente novamente.',
         });
       }
     },
