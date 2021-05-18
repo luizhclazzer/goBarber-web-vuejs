@@ -11,6 +11,8 @@
       },
     ]"
   >
+    <font-awesome-icon class="input-icon" :icon="suffixIcon" />
+
     <input
       class="input-sign"
       ref="input"
@@ -53,11 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$--color-error-500: #c53030;
-$--color-info-500: #0095ff;
-$--color-success-500: #00e096;
-$--color-warning-500: #ffaa00;
-
 .input-container {
   background: #232129;
   border-radius: 10px;
@@ -69,23 +66,29 @@ $--color-warning-500: #ffaa00;
   color: #666360;
 
   &.is-error {
-    border-color: $--color-error-500;
+    border-color: #c53030;
   }
 
   &.is-info {
-    border-color: $--color-info-500;
+    border-color: #0095ff;
   }
 
   &.is-success {
-    border-color: $--color-success-500;
+    border-color: #00e096;
   }
 
   &.is-warning {
-    border-color: $--color-warning-500;
+    border-color: #ffaa00;
   }
 
   & + div {
     margin-top: 8px;
+  }
+
+  &.has-icon {
+    & > input {
+      padding-left: 12px;
+    }
   }
 }
 

@@ -11,6 +11,7 @@
             placeholder="E-mail"
             v-model="email"
             :class="{ 'is-error': $v.email.$error }"
+            suffixIcon="envelope"
           />
           <div class="error" v-if="$v.email.$dirty && !$v.email.required">
             Insira seu e-mail
@@ -21,6 +22,7 @@
             placeholder="Senha"
             v-model="password"
             :class="{ 'is-error': $v.password.$error }"
+            suffixIcon="lock"
           />
           <div class="error" v-if="$v.password.$dirty && !$v.password.required">
             Insira sua senha
