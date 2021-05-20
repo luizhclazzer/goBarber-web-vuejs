@@ -12,13 +12,14 @@ import {
   faLock,
   faSignInAlt,
   faUser,
+  faPowerOff,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'vue-select/dist/vue-select.css';
 
-library.add(faEnvelope, faLock, faSignInAlt, faArrowLeft, faUser);
+library.add(faEnvelope, faLock, faSignInAlt, faArrowLeft, faUser, faPowerOff);
 
 Vue.use(VueSweetalert2);
 Vue.component('v-select', vSelect);

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 
-import Home from '../views/Home.vue';
+import Dashboard from '../views/Dashboard.vue';
 import SignUp from '../views/SignUp.vue';
 import SignIn from '../views/SignIn.vue';
 
@@ -15,8 +15,8 @@ const authenticatedRoute = (to, from, next) => {
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Dashboard',
+    component: Dashboard,
     beforeEnter: authenticatedRoute,
   },
   {
