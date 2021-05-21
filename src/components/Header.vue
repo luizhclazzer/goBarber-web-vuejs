@@ -1,8 +1,15 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="isAuthenticated">
     <div class="headerContent">
       <img src="../assets/logo.svg" alt="logo" />
-
+      <div class="profile">
+        <div class="info">
+          <span>Bem-vindo(a), </span>
+          <router-link to="/profile">
+            {{ user.name }}
+          </router-link>
+        </div>
+      </div>
       <button @click="logout" type="button">
         <font-awesome-icon icon="power-off" />
       </button>
@@ -49,6 +56,33 @@ export default {
       color: #999591;
       width: 19px;
       height: 19px;
+    }
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-left: 80px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+  line-height: 24px;
+  font-weight: bold;
+
+  span {
+    color: #f4ede8;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ff9000;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 }

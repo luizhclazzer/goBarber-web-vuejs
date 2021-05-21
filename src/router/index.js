@@ -2,9 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 
-import Dashboard from '../views/Dashboard.vue';
 import SignUp from '../views/SignUp.vue';
 import SignIn from '../views/SignIn.vue';
+import Dashboard from '../views/Dashboard.vue';
+import Profile from '../views/Profile.vue';
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,12 @@ const routes = [
     path: '/',
     name: 'Dashboard',
     component: Dashboard,
+    beforeEnter: authenticatedRoute,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
     beforeEnter: authenticatedRoute,
   },
   {
