@@ -171,10 +171,13 @@ export default {
 
     display: flex;
     align-items: center;
-    transition: color 0.2s;
 
     svg {
       margin-right: 16px;
+    }
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 }

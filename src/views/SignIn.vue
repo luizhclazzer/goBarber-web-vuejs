@@ -28,12 +28,10 @@
             Insira sua senha
           </div>
           <ButtonSign type="submit">Entrar</ButtonSign>
-          <router-link to="/signup" class="text-dark"
-            >Esqueci minha senha</router-link
-          >
+          <router-link to="/signup">Esqueci minha senha</router-link>
         </form>
 
-        <router-link to="/signup" class="text-dark">
+        <router-link to="/signup">
           <font-awesome-icon icon="sign-in-alt" /> Criar Conta
         </router-link>
       </div>
@@ -131,7 +129,10 @@ export default {
       display: block;
       margin-top: 24px;
       text-decoration: none;
-      transition: color 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
@@ -148,6 +149,10 @@ export default {
 
     svg {
       margin-right: 16px;
+    }
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 }
